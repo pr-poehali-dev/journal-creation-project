@@ -194,7 +194,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-8">
-              <h1 className="text-4xl font-bold tracking-wider">GENTLEMAN</h1>
+              <h1 className="text-4xl font-bold tracking-wider">MR.ALEKS</h1>
               <nav className="hidden md:flex space-x-8 text-sm tracking-wide">
                 <a href="#" className="text-gray-300 hover:text-white transition-colors">СТИЛЬ</a>
                 <a href="#" className="text-gray-300 hover:text-white transition-colors">LUXURY</a>
@@ -465,7 +465,7 @@ export default function Index() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-4">
-              <h4 className="text-2xl font-bold text-white tracking-wider">GENTLEMAN</h4>
+              <h4 className="text-2xl font-bold text-white tracking-wider">MR.ALEKS</h4>
               <p className="text-gray-400">
                 Премиальный мужской журнал о стиле, роскоши и художественной фотографии
               </p>
@@ -512,7 +512,7 @@ export default function Index() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 Gentleman Magazine. Все права защищены. 18+</p>
+            <p>&copy; 2024 Mr.Aleks Magazine. Все права защищены. 18+</p>
           </div>
         </div>
       </footer>
