@@ -3,103 +3,131 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
-interface Photo {
+interface Article {
   id: number;
   title: string;
-  description: string;
+  subtitle: string;
+  category: string;
   image: string;
-  page: number;
+  readTime: string;
+  featured?: boolean;
 }
 
-const photos: Photo[] = [
+const articles: Article[] = [
   {
     id: 1,
-    title: "Портретная съемка",
-    description: "Исследование человеческих эмоций через объектив камеры. Черно-белая фотография подчеркивает глубину взгляда.",
-    image: "/img/e6ce4f6d-5677-4d77-9a6c-57d341797b0e.jpg",
-    page: 3
+    title: "Стиль современного джентльмена",
+    subtitle: "Как выглядеть безупречно в любой ситуации",
+    category: "STYLE",
+    image: "/img/a7159cf3-00a4-4938-9e48-4f5ff9d324cc.jpg",
+    readTime: "8 мин",
+    featured: true
   },
   {
     id: 2,
-    title: "Городские пейзажи", 
-    description: "Архитектурная красота современного города в минималистичном стиле. Игра света и тени на городских улицах.",
-    image: "/img/ed45fc63-8ebd-4a34-8d15-8ae71650e0fd.jpg",
-    page: 7
+    title: "Суперкары 2024",
+    subtitle: "Топ-10 самых желанных автомобилей года",
+    category: "АВТО",
+    image: "/img/6a9816a6-75a6-4875-8592-b6f59035e976.jpg",
+    readTime: "12 мин"
   },
   {
     id: 3,
-    title: "Природные ландшафты",
-    description: "Драматичное небо и естественная композиция создают атмосферу спокойствия и величия природы.",
-    image: "/img/92925b68-39af-4eaf-b826-58fabeacb451.jpg",
-    page: 11
+    title: "Часы как инвестиция",
+    subtitle: "Механические шедевры, которые растут в цене",
+    category: "LUXURY",
+    image: "/img/86e5ee30-2807-41d8-be6e-0caaaab0019d.jpg",
+    readTime: "6 мин"
   }
 ];
 
-const tableOfContents = [
-  { title: "От редактора", page: 2 },
-  { title: "Портретная съемка", page: 3 },
-  { title: "Техника черно-белой фотографии", page: 5 },
-  { title: "Городские пейзажи", page: 7 },
-  { title: "Композиция в фотографии", page: 9 },
-  { title: "Природные ландшафты", page: 11 },
-  { title: "Авторы номера", page: 12 }
+const categories = [
+  { name: "СТИЛЬ", count: 24 },
+  { name: "АВТО", count: 18 },
+  { name: "LUXURY", count: 15 },
+  { name: "БИЗНЕС", count: 22 },
+  { name: "СПОРТ", count: 19 },
+  { name: "ТЕХНОЛОГИИ", count: 16 }
 ];
 
 const Index = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="border-b border-gray-200 py-6">
-        <div className="max-w-7xl mx-auto px-4">
+      <header className="border-b border-gray-800 bg-black/95 backdrop-blur-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold tracking-tight text-black">
-                PHOTOGRAPHY MAGAZINE
+            <div className="flex items-center space-x-8">
+              <h1 className="text-3xl font-bold tracking-wider text-white">
+                GENTLEMAN
               </h1>
-              <p className="text-gray-600 mt-1">Issue #42 • September 2024</p>
+              <nav className="hidden md:flex space-x-8">
+                <a href="#" className="text-gray-300 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide">Главная</a>
+                <a href="#style" className="text-gray-300 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide">Стиль</a>
+                <a href="#luxury" className="text-gray-300 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide">Luxury</a>
+                <a href="#auto" className="text-gray-300 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide">Авто</a>
+                <a href="#business" className="text-gray-300 hover:text-white transition-colors uppercase text-sm font-medium tracking-wide">Бизнес</a>
+              </nav>
             </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-900 hover:text-gray-600">Home</a>
-              <a href="#galleries" className="text-gray-900 hover:text-gray-600">Galleries</a>
-              <a href="#articles" className="text-gray-900 hover:text-gray-600">Articles</a>
-              <a href="#about" className="text-gray-900 hover:text-gray-600">About</a>
-              <a href="#contact" className="text-gray-900 hover:text-gray-600">Contact</a>
-            </nav>
+            <div className="flex items-center space-x-4">
+              <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 hover:bg-white hover:text-black">
+                Подписаться
+              </Button>
+              <Icon name="Search" size={20} className="text-gray-400 hover:text-white cursor-pointer" />
+            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-6xl font-bold text-black mb-6 leading-tight">
-              Искусство через объектив
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-10"></div>
+        <img 
+          src={articles[0].image} 
+          alt="Hero"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="relative z-20 max-w-4xl mx-auto px-4 text-left">
+          <div className="space-y-6">
+            <span className="inline-block px-3 py-1 bg-white/10 backdrop-blur-sm text-white text-xs font-bold tracking-wider uppercase">
+              {articles[0].category}
+            </span>
+            <h2 className="text-7xl font-bold text-white leading-tight">
+              {articles[0].title}
             </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Исследуем мир современной фотографии через призму творчества и технического мастерства. 
-              Каждый кадр — это история, рассказанная светом и тенью.
+            <p className="text-2xl text-gray-200 max-w-2xl leading-relaxed">
+              {articles[0].subtitle}
             </p>
-            <Button className="bg-black text-white hover:bg-gray-800 px-8 py-3 text-lg">
-              <Icon name="Camera" size={20} className="mr-2" />
-              View Gallery
-            </Button>
+            <div className="flex items-center space-x-6 pt-4">
+              <Button className="bg-white text-black hover:bg-gray-100 px-8 py-4 text-lg font-medium">
+                Читать статью
+                <Icon name="ArrowRight" size={20} className="ml-2" />
+              </Button>
+              <span className="text-gray-400 text-sm">{articles[0].readTime} чтения</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Table of Contents */}
-      <section className="py-16 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <h3 className="text-3xl font-bold text-black mb-12 text-center">Содержание номера</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {tableOfContents.map((item, index) => (
-              <div key={index} className="flex justify-between items-center py-4 border-b border-gray-100">
-                <h4 className="text-lg font-medium text-gray-900">{item.title}</h4>
-                <span className="text-gray-600 font-mono">стр. {item.page}</span>
-              </div>
+      {/* Categories */}
+      <section className="py-16 bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4">
+          <h3 className="text-3xl font-bold text-white mb-12 text-center tracking-wide">РУБРИКИ</h3>
+          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {categories.map((category, index) => (
+              <Card 
+                key={index} 
+                className="bg-black/50 border-gray-800 hover:bg-gray-900 transition-colors cursor-pointer"
+                onClick={() => setSelectedCategory(category.name)}
+              >
+                <CardContent className="p-6 text-center">
+                  <h4 className="text-lg font-bold text-white mb-2 tracking-wide">{category.name}</h4>
+                  <p className="text-gray-400 text-sm">{category.count} статей</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
